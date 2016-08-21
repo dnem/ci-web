@@ -1,0 +1,14 @@
+resources:
+- name: ci-web
+  type: git
+  source:
+    uri: https://github.com/dnem/ci-web
+    branch: master
+
+jobs:
+- name: build-ci-web
+  plan:
+  - get: ci-web
+    trigger: true
+  - task: tests
+    file: ci-web/ci/tasks/build.yml
