@@ -6,9 +6,21 @@ resources:
     branch: master
 
 jobs:
-- name: build-ci-web
+- name: test-ci-web
+  serial: true
+  public: true
   plan:
   - get: ci-web
     trigger: true
-  - task: tests
-    file: ci-web/ci/tasks/build.yml
+  - task: unit
+    file: ci-web/ci/tasks/unit.yml
+
+- name: build-ci-web
+  serial: true
+  public: true
+  plan:
+    - get: ci-web
+      passed: [ test-ci-web ]
+      trigger: true
+    - task: build
+      file: ci-web/ci/tasks/build.yml

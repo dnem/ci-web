@@ -3,6 +3,7 @@ package server_test
 import (
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/codegangsta/negroni"
@@ -24,5 +25,8 @@ func TestHomeHandlerWithoutEnv(t *testing.T) {
 	if recorder.Code != http.StatusOK {
 		t.Errorf("Expected response code to be %d, received: %d",
 			http.StatusOK, recorder.Code)
+	}
+	if !strings.Contains(recorder.Body.String(), "stranger") {
+		t.Errorf("Expected page to contain `stranger`.")
 	}
 }

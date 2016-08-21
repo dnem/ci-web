@@ -8,4 +8,4 @@ cd ./src/github.com/dnem/ci-web
 go get -u github.com/Masterminds/glide
 glide install
 
-go build -o binary/ci-web
+go test -v $(glide novendor)

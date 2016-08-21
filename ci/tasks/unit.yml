@@ -10,10 +10,7 @@ inputs:
 - name: ci-web
   path: ./src/github.com/dnem/ci-web
 
-outputs:
-- name: binary
-
 run:
   path: sh
   args:
-  - ./src/github.com/dnem/ci-web/ci/tasks/build.sh
+    - ./src/github.com/dnem/ci-web/ci/tasks/unit.sh
