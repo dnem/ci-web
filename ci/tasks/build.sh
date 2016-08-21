@@ -9,4 +9,4 @@ go get -u github.com/Masterminds/glide
 glide install
 
 go test -v $(glide nv)
-go build -o binary/ci-web
+go build -o $GOPATH/binary/ci-web

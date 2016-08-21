@@ -5,6 +5,15 @@ resources:
     uri: https://github.com/dnem/ci-web
     branch: master
   check_every: 30s
+- name: cf-dev
+  type: cf
+  source:
+    api: {{cf-api}}
+    username: {{cf-username}}
+    password: {{cf-password}}
+    organization: {{cf-org}}
+    space: {{cf-space-dev}}
+    skip-cert-check: false
 
 jobs:
 - name: build-ci-web
@@ -16,6 +25,17 @@ jobs:
       trigger: true
     - task: build
       file: repo/ci/tasks/build.yml
-    - put: binary
+- name: deploy-dev
+  serial: true
+  public: false
+  plan:
+    - aggregate:
+      - get: repo
+        resource: ci-web
+        passed: [ build-ci-web ]
+        trigger: true
+    - put: cf-dev
       params:
-        file: binary/ci-web
+        manifest: repo/manifest-dev.yml
+        path: binary/ci-web
+        current_app_name: ci-web-dev

@@ -1,0 +1,6 @@
+---
+cf-api: https://api.run.pez.pivotal.io
+cf-username: x
+cf-password: x
+cf-org: x
+cf-space-dev: dev

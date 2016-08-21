@@ -25,3 +25,5 @@ _testmain.go
 ci-web
 main
 /vendor
+
+creds.yml
