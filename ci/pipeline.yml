@@ -4,6 +4,7 @@ resources:
   source:
     uri: https://github.com/dnem/ci-web
     branch: master
+  check_every: 10s
 
 jobs:
 - name: test-ci-web
