@@ -4,24 +4,18 @@ resources:
   source:
     uri: https://github.com/dnem/ci-web
     branch: master
-  check_every: 10s
+  check_every: 30s
 
 jobs:
-- name: test-ci-web
-  serial: true
-  public: true
-  plan:
-  - get: ci-web
-    trigger: true
-  - task: unit
-    file: ci-web/ci/tasks/unit.yml
-
 - name: build-ci-web
   serial: true
   public: true
   plan:
-    - get: ci-web
-      passed: [ test-ci-web ]
+    - get: repo
+      resource: ci-web
       trigger: true
     - task: build
-      file: ci-web/ci/tasks/build.yml
+      file: repo/ci/tasks/build.yml
+    - put: binary
+      params:
+        file: binary/ci-web
